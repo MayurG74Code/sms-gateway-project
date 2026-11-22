@@ -8,8 +8,16 @@ pipeline {
     }
     stage('SonarQube Scan') {
       steps {
-        sh 'mvn sonar:sonar'
+        sh '''
+          docker run --rm \
+            --network host \
+            -v "$(pwd):/usr/src" \
+            sonarsource/sonar-scanner-cli \
+            -Dsonar.host.url=http://localhost:9000 \
+            -Dsonar.token=squ_fdb58901ea8a7dd09b80b758b0911613d77ad63a
+        '''
       }
+    }
     }
     stage('Docker Build') {
       steps {
