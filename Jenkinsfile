@@ -6,6 +6,11 @@ pipeline {
         echo 'Code pulled'
       }
     }
+    stage('SonarQube Scan') {
+      steps {
+        sh 'mvn sonar:sonar'
+      }
+    }
     stage('Docker Build') {
       steps {
         sh 'docker build -t sms-app:v1 .'
