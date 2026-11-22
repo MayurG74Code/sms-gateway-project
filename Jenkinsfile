@@ -11,13 +11,13 @@ pipeline {
         sh '''
           docker run --rm \
             --network host \
-            -v "$(pwd):/usr/src" \
+            --volumes-from jenkins \
+            -w /var/jenkins_home/workspace/sms-cicd \
             sonarsource/sonar-scanner-cli \
             -Dsonar.host.url=http://localhost:9000 \
             -Dsonar.token=squ_fdb58901ea8a7dd09b80b758b0911613d77ad63a
         '''
       }
-    }
     }
     stage('Docker Build') {
       steps {
