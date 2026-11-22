@@ -19,7 +19,6 @@ pipeline {
         '''
       }
     }
-    }
     stage('Docker Build') {
       steps {
         sh 'docker build -t sms-app:v1 .'
